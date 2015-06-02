@@ -37,8 +37,8 @@ application = tornado.web.Application([
 if __name__ == "__main__":
     import sys
     port = 8080
-    if len(sys.argv) > 1:
-        port = int(sys.argv[1])
+    if len(sys.argv) > 2:
+        port = int(sys.argv[2])
 
     application.listen(port)
     tornado.ioloop.IOLoop.instance().start()
