@@ -150,9 +150,22 @@ def override_searchShare(connId, share, smbServer):
 smbserver.searchShare = override_searchShare
 
 if __name__ == "__main__":
-    server = smbserver.SMBSERVER(('0.0.0.0', 445))
-    # todo Look into manually setting configuration to not rely on a configuration file
-    server.processConfigFile("smb.conf")
+    smbConfig = smbserver.ConfigParser.ConfigParser()
+    smbConfig.add_section('global')
+    smbConfig.set('global', 'server_name', 'server_name')
+    smbConfig.set('global', 'server_os', 'UNIX')
+    smbConfig.set('global', 'server_domain', 'WORKGROUP')
+    smbConfig.set('global', 'log_file', 'smb.log')
+    smbConfig.set('global', 'credentials_file', '')
+
+    smbConfig.add_section('IPC$')
+    smbConfig.set('IPC$', 'comment', '')
+    smbConfig.set('IPC$', 'read only', 'yes')
+    smbConfig.set('IPC$', 'share type', '3')
+    smbConfig.set('IPC$', 'path', '')
+
+    server = smbserver.SMBSERVER(('0.0.0.0', 445), config_parser=smbConfig)
+    server.processConfigFile()
     server.registerNamedPipe('srvsvc', ('0.0.0.0', 4344))
 
     # Auth and information gathering hooks
