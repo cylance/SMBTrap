@@ -7,7 +7,7 @@ from bitarray import bitarray
 """
 This module is a very simple code base to conduct very short and simple cracking of hashes used in SMB authentication.
 This script has not been optimized for speed, and should only be used for cracking the most common of passwords.
-Developed by Brian Wallace @botnet_hutner
+Developed by Brian Wallace @botnet_hunter
 """
 
 # todo Load dictionary from file
